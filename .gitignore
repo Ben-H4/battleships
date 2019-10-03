@@ -1,0 +1,11 @@
+*.swp
+*.pyc
+*.log
+__pycache__
+temp/
+_*
+**/.idea/
+
+bots/*
+!bots/random.py
+!bots/sequential.py
