@@ -42,7 +42,8 @@ class TestUtilities(unittest.TestCase):
         
         ship=(3,-1,2,True)        
         self.assertFalse(is_ship_valid(ship))
-        
+    
+            
     def test_valid_ships(self):
         world=World(5,5)
         ships=((5,0,0,False),
@@ -137,27 +138,27 @@ class TestUtilities(unittest.TestCase):
     def test_ship_sunk_matthew1(self):
         world=World(10,10)
         
-        ships = [(5,2,2,False),
-                (4,2,3,False),
-                (3,2,4,False),
-                (3,2,5,False),
-                (2,7,6,True)]
+        ships = [(5, 2, 2, False),
+                (4, 2, 4, False),
+                (3, 2, 6, False),
+                (3, 2, 8, False),
+                (2, 7, 6, False)]
         world.set_ships(ships)
         
         "shoot just the troublesome spot and check that it isn't sunk, and equals 1 not 2 or 0."
-        world.shoot(4,3)
-        self.assertFalse(world.is_ship_sunk(4,3))
+        world.shoot(2,2)
+        self.assertFalse(world.is_ship_sunk(2,2))
         hits=world.get_hits()
-        self.assertEqual(hits[4][3],1)
+        self.assertEqual(hits[2][2],1)
     
     def test_ship_sunk_matthew2(self):
         world=World(10,10)
         
-        ships = [(5,2,2,False),
-                (4,2,3,False),
-                (3,2,4,False),
-                (3,2,5,False),
-                (2,7,6,True)]
+        ships = [(5, 2, 2, False),
+            (4, 2, 4, False),
+            (3, 2, 6, False),
+            (3, 2, 8, False),
+            (2, 7, 6, False)]
         world.set_ships(ships)
         
         matthew_shots=((9,5),
@@ -166,13 +167,13 @@ class TestUtilities(unittest.TestCase):
             (9,3),
             (8,8),
             (2,8),
-            (4,3))
+            (2,2))
         for x,y in matthew_shots:
             world.shoot(x,y)
         
         hits=world.get_hits()
-        self.assertFalse(world.is_ship_sunk(4,3))
-        self.assertEqual(hits[4][3],1)
+        self.assertFalse(world.is_ship_sunk(2,2))
+        self.assertEqual(hits[2][2],1)
         
     def test_ship_sunk(self):
         world=World(10,10)
@@ -283,6 +284,25 @@ class TestUtilities(unittest.TestCase):
             (4,4,0,True))
         
         self.assertTrue(do_ships_overlap(ships))
+    
+    def test_ships_touching(self):        
+        "Touching ships"
+        ships=((5,0,0,False),
+            (4,1,1,False),
+            (3,0,2,False),
+            (3,2,3,False),
+            (2,1,4,False))
+        
+        self.assertTrue(do_ships_touch(ships))
+        
+        "No ships touching"
+        ships=((5, 2, 2, False),
+            (4, 2, 4, False),
+            (3, 2, 6, False),
+            (3, 2, 8, False),
+            (2, 7, 6, False))
+        
+        self.assertFalse(do_ships_touch(ships))
         
         
         

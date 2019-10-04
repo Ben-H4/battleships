@@ -24,3 +24,4 @@ class SHIPS_ERROR:
     DUPLICATE_LENGTH="too many ships with this length"
     OUTSIDE="a ship is outside the world limits"
     OVERLAPPING="ships overlap"
+    TOUCHING="ships are touching"

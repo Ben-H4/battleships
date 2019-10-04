@@ -70,7 +70,8 @@ class World:
 
     def set_ships(self, ships):
         "Returns true if no errors were encountered."
-        for ship in ships:
+        for counter, ship in enumerate(ships):
+        # for ship in ships:
             if not self.set_ship(ship):
                 return False
             
@@ -96,9 +97,29 @@ class World:
         for x, y in get_ship_coordinates(ship):
             if self.ships[x][y]:
                 return False
+            if self.is_ship_touching(x, y, ship_id):
+                return False
             self.ships[x][y] = ship_id
+            
         return True
 
+    def is_ship_touching(self, x, y, ship_id):
+        "Returns True if any coordinate on the ship shares an edge with another."
+        if x < self.width-1:
+            if self.ships[x+1][y] and self.ships[x+1][y] != ship_id:
+                return True
+        if x > 0:
+            if self.ships[x-1][y] and self.ships[x-1][y] != ship_id:
+                return True
+        if y < self.height-1:
+            if self.ships[x][y+1] and self.ships[x][y+1] != ship_id:
+                return True
+        if y > 0:
+            if self.ships[x][y-1] and self.ships[x][y-1] != ship_id:
+                return True
+        
+        return False
+        
     def is_in_bounds(self, x, y):
         return x >= 0 and y >= 0 and x < self.width and y < self.height
 
@@ -111,6 +132,7 @@ class World:
             if not self.is_in_bounds(x, y):
                 return False
         return True
+            
     
     def is_ships_valid(self,ships):
         return not self._get_invalid_ships_message(ships)

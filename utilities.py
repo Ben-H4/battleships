@@ -109,6 +109,30 @@ def get_overlap_ships_message(ships):
             used_coords.add(coord)
     return ""
 
+def do_ships_touch(ships):
+    return bool(get_touching_ships_message(ships))
+    
+def get_touching_ships_message(ships):
+    "Returns an empty string if ships do not touch. If they do, returned string describes the overlap."
+    used_coords=set()
+    count = 0
+    for ship in ships:
+        count += 1
+        ship_id = count
+        for x, y in get_ship_coordinates(ship):
+            coord = (x,y,ship_id)
+            if any([True for t in used_coords if t[0]==x+1 and t[1]==y and t[2]!=ship_id]):
+                return "touching ships detected. (x,y)="+str((x,y))+" ship="+str(ship)
+            if any([True for t in used_coords if t[0]==x-1 and t[1]==y and t[2]!=ship_id]):
+                return "touching ships detected. (x,y)="+str((x,y))+" ship="+str(ship)
+            if any([True for t in used_coords if t[0]==x and t[1]==y+1 and t[2]!=ship_id]):
+                return "touching ships detected. (x,y)="+str((x,y))+" ship="+str(ship)
+            if any([True for t in used_coords if t[0]==x and t[1]==y-1 and t[2]!=ship_id]):
+                return "touching ships detected. (x,y)="+str((x,y))+" ship="+str(ship)
+                
+            used_coords.add(coord)
+    return ""
+    
 def get_ship_coordinates(ship):
     """Given ship parameters, returns a list of coordinates this ship will occupy. Example:
     

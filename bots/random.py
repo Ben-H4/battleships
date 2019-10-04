@@ -6,8 +6,8 @@ from constants import *
 
 class BattleshipBot():
     def __init__(self):
-        self.ship_name = "SS Shake Not Stirred"  # Name of Fleet
-        self.commander_name = "James Bond"  # Name of Commander
+        self.ship_name = "SS Random"  # Name of Fleet
+        self.commander_name = "Random"  # Name of Commander
 
     def get_setup(self):
         ships = [
@@ -15,10 +15,10 @@ class BattleshipBot():
             # Do not change the ship-size
             # x-cord and y-cord are between 0-9
             (5, 2, 2, False),
-            (4, 2, 3, False),
-            (3, 2, 4, False),
-            (3, 2, 5, False),
-            (2, 7, 6, True)
+            (4, 2, 4, False),
+            (3, 2, 6, False),
+            (3, 2, 8, False),
+            (2, 7, 6, False)
         ]
         return ships
 
