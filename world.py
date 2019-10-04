@@ -26,6 +26,7 @@ class World:
 
     def get_ships(self):
         return self.get_tuple_array(self.ships)
+        
 
     def get_hits(self):
         """Returns a 2D array.
@@ -40,6 +41,7 @@ class World:
         for sunk_shot in self.sunk_shots:
             hits[sunk_shot[0]][sunk_shot[1]]=2
         return hits
+    
 
     def shoot(self, x, y):
         "Shoots this cell."
@@ -163,16 +165,21 @@ class World:
     def show(self, label, other_world=None):
         print(label)
         print(self.to_string(other_world=other_world))
+    
+        
 
     def to_string(self, other_world=None):
         "Returns a string that can be printed to display the state of the world."
         hits = self.get_hits()
         spacing = "        "
         lines = []
+        
         for j in range(self.height):
             lines.append(spacing)
             for i in range(self.width):
-                if hits[i][j]:
+                if(i<2 and j<1) or (i<1 and j<2) or (i>7 and j<1) or (i>8 and j<2) or (j>7 and i>8) or (j>8 and i>7) or (j>7 and i<1) or (i<2 and j>8):
+                    lines[-1] += "  "
+                elif hits[i][j]:
                     lines[-1] += " X"
                 elif self.shots[i][j]:
                     lines[-1] += " O"

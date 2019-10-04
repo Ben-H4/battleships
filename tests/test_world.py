@@ -108,6 +108,7 @@ class TestUtilities(unittest.TestCase):
         for ship in outside_ships:
             self.assertFalse(world.is_ship_in_bounds(ship),msg=str(ship))
             
+            
     def test_ship_sunk_012(self):
         world=World(10,10)
         

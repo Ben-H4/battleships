@@ -45,9 +45,23 @@ def is_ship_in_world(ship):
     if not is_ship_valid(ship):
         return False
     for x,y in get_ship_coordinates(ship):
-        if x<0 or y<0 or x>=BOARD.WIDTH or y>=BOARD.HEIGHT:
+        "Corner One"
+        if (x<2 and y<1) or (x<1 and y<2):
+          return False
+        "Corner Two"    
+        if (x>7 and y<1) or (x>8 and y<2):
+          return False
+        "Corner Three"
+        if (y>7 and x>8) or (y>8 and x>7):
+          return False
+        "Corner Four"
+        if (y>7 and x<1) or (x<2 and y>8):
+            return False
+        "Finally check the actual boundaries of the board"    
+        if x>=BOARD.WIDTH or y>=BOARD.HEIGHT:
             return False
     return True
+    
 
 def are_ships_valid(ships):
     "Returns true if every ship is valid, can be placed in the world, and they do not overlap."
@@ -59,11 +73,6 @@ def are_ships_valid(ships):
             return False        
     return not do_ships_overlap(ships)
 
-def is_ship_in_world(ship):
-    for x,y in get_ship_coordinates(ship):
-        if x<0 or y<0 or x>=BOARD.WIDTH or y>=BOARD.HEIGHT:
-            return False
-    return True
 
 def is_ship_valid(ship):
     "Returns True if this ship is valid ship data, and can be placed in some world."
